@@ -1934,6 +1934,7 @@ void
 run(void)
 {
 	XEvent ev;
+	Arg farg = { .i = 0 };
 	int w = win.w, h = win.h;
 	fd_set rfd;
 	int xfd = XConnectionNumber(xw.dpy), ttyfd, xev, drawing;
@@ -1955,6 +1956,9 @@ run(void)
 			h = ev.xconfigure.height;
 		}
 	} while (ev.type != MapNotify);
+
+	if (defaultfullscreen)
+		fullscreen(&farg);
 
 	ttyfd = ttynew(opt_line, shell, opt_io, opt_cmd);
 	cresize(w, h);
@@ -2064,6 +2068,9 @@ main(int argc, char *argv[])
 		if (argc > 0)
 			--argc, ++argv;
 		goto run;
+	case 'F':
+		defaultfullscreen = 1;
+		break;
 	case 'f':
 		opt_font = EARGF(usage());
 		break;

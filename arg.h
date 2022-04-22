@@ -21,6 +21,10 @@ extern char *argv0;
 					argc--;\
 					break;\
 				}\
+				if (strncmp(&argv[0][1], "title", 6) == 0)\
+					argv[0][2] = 0;\
+				if (strncmp(&argv[0][1], "name", 5) == 0)\
+					argv[0][2] = 0;\
 				int i_;\
 				for (i_ = 1, brk_ = 0, argv_ = argv;\
 						argv[0][i_] && !brk_;\
